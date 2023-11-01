@@ -1,1 +1,18 @@
--- Rostou v průběhu let mzdy ve všech odvětvích, nebo v některých klesají?
+/* Rostou v průběhu let mzdy ve všech odvětvích, nebo v některých klesají?
+Ve všech odvětvích mzdy v průběhu let rostou.*/
+
+SELECT
+	industry_branch,
+	payroll_year,
+	SUM(payroll_value) AS payroll_value
+FROM
+	t_Lenka_Sedlackova_project_SQL_primary_final
+WHERE
+	industry_branch IS NOT NULL
+GROUP BY 
+	industry_branch,
+	payroll_year
+ORDER BY
+	industry_branch,
+	payroll_value
+;
