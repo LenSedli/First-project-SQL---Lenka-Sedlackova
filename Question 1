@@ -1,5 +1,6 @@
-/* Rostou v průběhu let mzdy ve všech odvětvích, nebo v některých klesají?
-Ve všech odvětvích mzdy v průběhu let rostou.*/
+/*Rostou v průběhu let mzdy ve všech odvětvích, nebo v některých klesají?
+Ve všech odvětvích mzdy od roku 2019 klesají. Do té doby rostly.
+*/
 
 SELECT
 	industry_branch,
@@ -14,5 +15,5 @@ GROUP BY
 	payroll_year
 ORDER BY
 	industry_branch,
-	payroll_value
+	payroll_year
 ;
