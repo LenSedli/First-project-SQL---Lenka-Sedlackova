@@ -9,10 +9,13 @@ SELECT
 	YEAR (date_to),
 	ROUND(AVG(value)) AS Value,
 	ROUND(AVG(payroll_value)) AS Payroll_value,
-	payroll_value / value 
-FROM t_Lenka_Sedlackova_project_SQL_primary_final
-WHERE name IN ('Mléko polotučné pasterované', 'Chléb konzumní kmínový')
-AND YEAR(date_to) IN (2007, 2018)
-GROUP BY name,
+	payroll_value / value
+FROM
+	t_Lenka_Sedlackova_project_SQL_primary_final
+WHERE
+	name IN ('Mléko polotučné pasterované', 'Chléb konzumní kmínový')
+	AND YEAR(date_to) IN (2007, 2018)
+GROUP BY
+	name,
 	YEAR (date_to)
 ;
