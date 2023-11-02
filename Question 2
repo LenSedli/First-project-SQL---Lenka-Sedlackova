@@ -1,1 +1,18 @@
--- Kolik je možné si koupit litrů mléka a kilogramů chleba za první a poslední srovnatelné období v dostupných datech cen a mezd?
+/*Kolik je možné si koupit litrů mléka a kilogramů chleba za první a poslední 
+srovnatelné období v dostupných datEh cen a mezd?
+První srovnatelné období je od roku 2007. V roce 2006 chyběla většina mzdových údajů.
+
+*/
+
+SELECT 
+	name,
+	YEAR (date_to),
+	ROUND(AVG(value)) AS Value,
+	ROUND(AVG(payroll_value)) AS Payroll_value,
+	payroll_value / value 
+FROM t_Lenka_Sedlackova_project_SQL_primary_final
+WHERE name IN ('Mléko polotučné pasterované', 'Chléb konzumní kmínový')
+AND YEAR(date_to) IN (2007, 2018)
+GROUP BY name,
+	YEAR (date_to)
+;
