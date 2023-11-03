@@ -2,12 +2,13 @@ CREATE TABLE t_Lenka_Sedlackova_project_SQL_primary_final AS
 SELECT 
 	cpay.id AS payroll_id,
 	cpay.value AS payroll_value,
-	cpay.payroll_year,
+	cpay.payroll_year AS payroll_year
 	cpib.name AS industry_branch,
 	cp.id AS price_id,
 	YEAR(cp.date_to) AS price_year,
 	cp.value AS price_value,
-	cpc2.name AS price_name
+	cpc2.name AS price_name,
+	cpc2.price_unit AS price_unit
 FROM
 	czechia_payroll AS cpay
 LEFT JOIN czechia_payroll_industry_branch AS cpib
