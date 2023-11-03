@@ -5,16 +5,17 @@ Za první období je možné koupit 1073 kg chleba a 1297 l mléka a za posledn�
 období je možné si koupit 1233 kg chleba a 1508	l mléka.*/
 
 SELECT 
-	name,
-	YEAR (date_to) AS year,
-	ROUND(AVG(payroll_value) / (AVG(value))) AS value,
+	price_name,
+	price_year,
+	ROUND(AVG(payroll_value) / (AVG(price_value))) AS value,
 	price_unit 
 FROM
 	t_Lenka_Sedlackova_project_SQL_primary_final
 WHERE
-	name IN ('Mléko polotučné pasterované', 'Chléb konzumní kmínový')
-	AND YEAR(date_to) IN (2007, 2018)
+	price_name IN ('Mléko polotučné pasterované', 'Chléb konzumní kmínový')
+	AND price_year IN (2007, 2018)
 GROUP BY
-	name,
-	YEAR (date_to)
+	price_name,
+	price_year,
+	price_unit
 ;
