@@ -1,1 +1,19 @@
-
+CREATE TABLE t_Lenka_Sedlackova_project_SQL_primary_final AS 
+SELECT 
+	cpay.id AS payroll_id,
+	cpay.value AS payroll_value,
+	cpay.payroll_year,
+	cpib.name AS industry_branch,
+	cp.id AS price_id,
+	YEAR(cp.date_to) AS price_year,
+	cp.value AS price_value,
+	cpc2.name AS price_name
+FROM
+	czechia_payroll AS cpay
+LEFT JOIN czechia_payroll_industry_branch AS cpib
+	ON cpib.code = cpay.industry_branch_code
+LEFT JOIN czechia_price AS cp 
+	ON cpay.payroll_year = YEAR (cp.date_from)
+LEFT JOIN czechia_price_category AS cpc2 
+	ON cp.category_code = cpc2.code
+;
