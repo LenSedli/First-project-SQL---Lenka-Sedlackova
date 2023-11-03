@@ -5,7 +5,7 @@ Ve všech odvětvích mzdy od roku 2019 klesají. Do té doby rostly.
 SELECT
 	industry_branch,
 	payroll_year,
-	SUM(payroll_value) AS payroll_value
+	SUM(payroll_value)
 FROM
 	t_Lenka_Sedlackova_project_SQL_primary_final
 WHERE
