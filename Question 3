@@ -1,18 +1,49 @@
-/*Která kategorie potravin zdražuje nejpomaleji (je u ní nejnižší percentuální meziroční nárůst)?
+/*3. Která kategorie potravin zdražuje nejpomaleji (je u ní nejnižší percentuální meziroční nárůst)?
+Nejpomaleji zdražuje cukr krystalový. Ten dokonce zlevněje. */
 
-*/
 
+WITH tab AS(
 SELECT
-	ls.name, 
-	YEAR(ls.date_to) AS `YEAR`,
-	YEAR(ls2.date_to) AS `year_prev`,
-	round ( (ls.value - ls2.value) / ls2.value,2) AS price_growth_percent
+	ls.price_name,
+	ls.price_year,
+	ls2.year_prev + 1 AS year_prev,
+	Round ((ls.avg_value - ls2.avg_value2) / avg_value2 * 100) AS value_growth
 FROM
-	t_Lenka_Sedlackova_project_SQL_primary_final AS ls
-JOIN 
-	t_Lenka_S edlackova_project_SQL_primary_final AS ls2
+	(
+	SELECT
+		price_name,
+		price_year,
+		avg(price_value) AS avg_value
+	FROM
+		t_Lenka_Sedlackova_project_SQL_primary_final
+	GROUP BY
+		price_name,
+		price_year
+	ORDER BY
+		price_name) ls
+JOIN (
+	SELECT
+		price_name,
+		price_year + 1 AS year_prev,
+		avg(price_value) AS avg_value2
+	FROM
+		t_Lenka_Sedlackova_project_SQL_primary_final ls2
+	GROUP BY
+		price_name,
+		price_year + 1
+	ORDER BY
+		price_name) ls2
 ON
-	ls.name = ls2.name
-	AND YEAR(ls.date_to) = YEAR(ls2.date_to)+1
-	AND  YEAR(ls.date_to) < 2019
+	ls.price_name = ls2.price_name
+	AND ls.price_year = ls2.year_prev + 1
+	AND ls.price_year <2019)
+SELECT
+	price_name,
+	ROUND(avg(value_growth)) AS value_growth
+FROM
+	tab
+GROUP BY
+	price_name 
+ORDER BY 
+	value_growth 
 ;
