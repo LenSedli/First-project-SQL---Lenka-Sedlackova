@@ -1,14 +1,10 @@
-/*Kolik je možné si koupit litrů mléka a kilogramů chleba za první a poslední 
-srovnatelné období v dostupných datEh cen a mezd?
-První srovnatelné období je od roku 2007. V roce 2006 chyběla většina mzdových údajů.
-Za první období je možné koupit 1073 kg chleba a 1297 l mléka a za poslední srovnatelné
-období je možné si koupit 1233 kg chleba a 1508	l mléka.*/
-
 SELECT 
 	price_name,
 	price_year,
-	ROUND(AVG(payroll_value) / (AVG(price_value))) AS value,
-	price_unit 
+	SUM (payroll_value) AS payroll_value,
+	price_value,
+	ROUND (payroll_value / price_value) AS value,
+	price_unit
 FROM
 	t_Lenka_Sedlackova_project_SQL_primary_final
 WHERE
@@ -17,5 +13,6 @@ WHERE
 GROUP BY
 	price_name,
 	price_year,
+	price_value,
 	price_unit
 ;
