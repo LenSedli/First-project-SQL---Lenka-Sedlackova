@@ -1,82 +1,64 @@
-/*4. Existuje rok, ve kterém byl meziroční nárůst cen potravin výrazně vyšší než růst mezd (větší než 10 %)?
- Žádný takový rok není. Kromě roku 2013, kdy byly ceny potravin a mzdy na stejné úrovni, byl růst cen
- potravin vždy nižší než růst mezd.
- */
 WITH tab AS (
 SELECT
-	ls.price_name,
 	ls.price_year,
-	ls.avg_price_value,
-	ls2.avg_price_value2,
-	ls.industry_branch,
 	ls.payroll_year,
-	ls.avg_payroll_value,
-	ls2.avg_payroll_value2,
 	(avg_price_value - avg_price_value2) / avg_price_value2 * 100 AS price_value_growth,
 	(avg_payroll_value - avg_payroll_value2) / avg_payroll_value2 * 100 AS payroll_value_growth
 FROM
 	(
 	SELECT
-		price_name, 
+		price_name,
 		price_year,
 		ROUND(avg(price_value)) AS avg_price_value,
-		industry_branch,
 		payroll_year,
 		ROUND(avg(payroll_value)) AS avg_payroll_value
 	FROM
 		t_Lenka_Sedlackova_project_SQL_primary_final
 	WHERE
-		price_name IS NOT NULL
-		AND price_year IS NOT NULL
+		price_year IS NOT NULL
 		AND price_value IS NOT NULL
-		AND industry_branch IS NOT NULL
 	GROUP BY
-		price_name,
 		price_year,
-		industry_branch,
 		payroll_year) AS ls
 LEFT JOIN (
 	SELECT
 		price_name,
 		price_year + 1 AS price_year_prev,
 		ROUND(avg(price_value)) AS avg_price_value2,
-		industry_branch,
 		payroll_year + 1 AS payroll_year_prev,
 		ROUND(avg(payroll_value)) AS avg_payroll_value2
 	FROM
 		t_Lenka_Sedlackova_project_SQL_primary_final
 	WHERE
-		price_name IS NOT NULL
-		AND price_year IS NOT NULL
+		price_year IS NOT NULL
 		AND price_value IS NOT NULL
-		AND industry_branch IS NOT NULL
 	GROUP BY
-		price_name,
 		price_year + 1,
-		industry_branch,
 		payroll_year + 1)ls2
 	ON
 		ls.price_name = ls2.price_name
-		AND ls.price_year = ls2.price_year_prev
-		AND ls.payroll_year = ls2.payroll_year_prev
-		AND ls.price_year <2019
-		AND ls.payroll_year <2019)
-SELECT price_year,
+	AND ls.price_year = ls2.price_year_prev
+	AND ls.payroll_year = ls2.payroll_year_prev
+		)
+SELECT
+	price_year,
 	price_value_growth,
 	payroll_year,
 	payroll_value_growth,
 	price_value_growth-payroll_value_growth AS comparison
-FROM (
-SELECT
-	price_year,
-	ROUND(avg(price_value_growth)) AS price_value_growth,
-	payroll_year,
-	ROUND(avg(payroll_value_growth)) AS payroll_value_growth
 FROM
-	tab
-WHERE price_value_growth IS NOT NULL 
-AND payroll_value_growth IS NOT NULL   
-GROUP BY
-	price_year,
-	payroll_year) tab1	
+	(
+	SELECT
+		price_year,
+		ROUND(avg(price_value_growth)) AS price_value_growth,
+		payroll_year,
+		ROUND(avg(payroll_value_growth)) AS payroll_value_growth
+	FROM
+		tab
+	WHERE
+		price_value_growth IS NOT NULL
+		AND payroll_value_growth IS NOT NULL
+	GROUP BY
+		price_year,
+		payroll_year) tab1	
 ;
