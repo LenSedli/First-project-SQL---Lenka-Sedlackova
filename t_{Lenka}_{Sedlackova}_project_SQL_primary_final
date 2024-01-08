@@ -1,4 +1,4 @@
-CREATE TABLE t_Lenka_Sedlackova_project_SQL_primary_final AS   
+CREATE TABLE t_Lenka_Sedlackova_project_SQL_primary_final AS  
 SELECT 
 	cpib.name AS industry_branch,
 	cpay.payroll_year,
@@ -8,48 +8,57 @@ SELECT
 	cp.price_value,
 	cpc2.price_unit AS price_unit,
 	e.country,
-	e.`year`,
+	e.`year` AS GDP_year,
 	e.GDP
 FROM
 	czechia_payroll_industry_branch AS cpib
 LEFT JOIN 
 	(
 	SELECT
+		payroll_year,
 		ROUND (SUM (value)) AS payroll_value,
-		payroll_year
+		industry_branch_code
 	FROM
 		czechia_payroll
 	GROUP BY
-		payroll_year)AS cpay
-	ON 1=1
+		payroll_year,
+		industry_branch_code
+	ORDER BY
+		industry_branch_code,
+		payroll_year
+	) AS cpay
+	ON
+	cpib.code = cpay.industry_branch_code
 LEFT JOIN 
 	(
 	SELECT
+		category_code,
 		YEAR(date_to) AS price_year,
-		ROUND (SUM (value)) AS price_value
+		ROUND(AVG(value)) AS price_value
 	FROM
 		czechia_price
 	GROUP BY
-		price_year)AS cp 
+		category_code,
+		price_year
+	) AS cp
 	ON
-	cpay.payroll_year = cp.price_year
+	cpay.payroll_year = price_year
 LEFT JOIN czechia_price_category AS cpc2 
 	ON
-	1=1
+	cp.category_code = cpc2.code
 LEFT JOIN
 	(
 	SELECT
 		country,
 		`year`,
-		ROUND (GDP) AS GDP
+		GDP
 	FROM
 		economies
 	WHERE
 		country = 'Czech republic'
-		AND GDP IS NOT NULL
-	ORDER BY
-		`year`) AS e
+		AND `year` >= 2007
+	) AS e
 ON
 	1 = 1
+	AND cp.price_year = e.`year`
 ;
-
