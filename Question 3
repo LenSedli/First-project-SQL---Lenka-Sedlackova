@@ -1,13 +1,9 @@
-/*3. Která kategorie potravin zdražuje nejpomaleji (je u ní nejnižší percentuální meziroční nárůst)?
-Nejpomaleji zdražuje cukr krystalový. Ten dokonce zlevněje. */
-
-
 WITH tab AS(
 SELECT
 	ls.price_name,
 	ls.price_year,
 	ls2.year_prev + 1 AS year_prev,
-	Round ((ls.avg_value - ls2.avg_value2) / avg_value2 * 100) AS value_growth
+	ROUND ((ls.avg_value - ls2.avg_value2) / avg_value2 * 100) AS value_growth
 FROM
 	(
 	SELECT
@@ -18,9 +14,7 @@ FROM
 		t_Lenka_Sedlackova_project_SQL_primary_final
 	GROUP BY
 		price_name,
-		price_year
-	ORDER BY
-		price_name) ls
+		price_year) ls
 JOIN (
 	SELECT
 		price_name,
@@ -30,20 +24,17 @@ JOIN (
 		t_Lenka_Sedlackova_project_SQL_primary_final ls2
 	GROUP BY
 		price_name,
-		price_year + 1
-	ORDER BY
-		price_name) ls2
+		price_year + 1) ls2
 ON
 	ls.price_name = ls2.price_name
-	AND ls.price_year = ls2.year_prev + 1
-	AND ls.price_year <2019)
+	AND ls.price_year = ls2.year_prev + 1)
 SELECT
 	price_name,
 	ROUND(avg(value_growth)) AS value_growth
 FROM
 	tab
 GROUP BY
-	price_name 
+	price_name
 ORDER BY 
 	value_growth 
 ;
