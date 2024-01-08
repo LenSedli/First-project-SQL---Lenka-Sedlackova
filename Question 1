@@ -1,19 +1,12 @@
-/*Rostou v průběhu let mzdy ve všech odvětvích, nebo v některých klesají?
-Ve všech odvětvích mzdy od roku 2019 klesají. Do té doby rostly.
-*/
-
 SELECT
 	industry_branch,
 	payroll_year,
-	SUM(payroll_value)
+	payroll_value
 FROM
 	t_Lenka_Sedlackova_project_SQL_primary_final
 WHERE
-	industry_branch IS NOT NULL
-GROUP BY 
-	industry_branch,
-	payroll_year
-ORDER BY
-	industry_branch,
-	payroll_year
+	payroll_year BETWEEN 2016 AND 2021
+GROUP BY
+		industry_branch,
+		payroll_year
 ;
