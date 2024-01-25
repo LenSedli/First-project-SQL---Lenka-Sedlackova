@@ -1,4 +1,3 @@
-CREATE TABLE t_Lenka_Sedlackova_project_SQL_primary_final AS  
 SELECT 
 	cpib.name AS industry_branch,
 	cpay.payroll_year,
@@ -59,6 +58,5 @@ LEFT JOIN
 		AND `year` >= 2007
 	) AS e
 ON
-	1 = 1
-	AND cp.price_year = e.`year`
+	cp.price_year = e.`year`
 ;
