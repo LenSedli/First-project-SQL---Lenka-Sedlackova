@@ -23,8 +23,8 @@ Průvodní listina
   	b) Kolik je možné si koupit litrů mléka a kilogramů chleba za první a poslední
 		   srovnatelné období dostupné datech cen a mezd?
 		   Jako srovnatelné období jsem určila roky 2007 a 2018. To jsou roky, kde jsou plné hodnoty.
-		   V roce 2007 bylo možné si koupit 6726 kg chleba a 7987 l mléka a v roce 2018 8434 kg chleba
-		   a 10121 l mléka. Mzdy rostly, ale ceny potravin se zmenšily.
+		   V roce 2007 bylo možné si koupit 177.599 kg chleba a 210.901 l mléka a v roce 2018 206.167 kg chleba
+		   a 247.367 l mléka. Mzdy rostly, ale ceny potravin se zmenšily.
 		
 	
 	  c) Která kategorie potravin zdražuje nejpomaleji (je u nejnižší nejnižší meziroční nárůst)?
