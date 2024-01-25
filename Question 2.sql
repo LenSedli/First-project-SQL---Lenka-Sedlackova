@@ -9,7 +9,7 @@ FROM
 WHERE
 	price_name IN ('Mléko polotučné pasterované', 'Chléb konzumní kmínový')
 	AND price_year IN (2007, 2018))
-SELECT price_name, price_year, sum (value), price_unit
+SELECT price_name, price_year, SUM (value), price_unit
 FROM price_value
 GROUP BY price_name, price_year, price_unit
 ;
