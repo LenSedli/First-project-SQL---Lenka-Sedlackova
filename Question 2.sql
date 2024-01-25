@@ -1,18 +1,14 @@
-SELECT 
+WITH price_value AS (
+SELECT
 	price_name,
 	price_year,
-	SUM (payroll_value) AS payroll_value,
-	price_value,
-	ROUND (payroll_value / price_value) AS value,
-	price_unit
+	ROUND (payroll_value / price_value) AS value
 FROM
-	t_Lenka_Sedlackova_project_SQL_primary_final
+	t_lenka_sedlackova_project_sql_primary_final tlspspf
 WHERE
 	price_name IN ('Mléko polotučné pasterované', 'Chléb konzumní kmínový')
-	AND price_year IN (2007, 2018)
-GROUP BY
-	price_name,
-	price_year,
-	price_value,
-	price_unit
+	AND price_year IN (2007, 2018))
+SELECT price_name, price_year, sum (value)
+FROM price_value
+GROUP BY price_name, price_year
 ;
