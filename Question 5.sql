@@ -1,4 +1,4 @@
-WITH tabulka AS (
+WITH GDP_growth_comparison AS (
 SELECT
 	ls.price_year,
 	(ls.avg_price_value - ls2.avg_price_value2) / ls2.avg_price_value2 * 100 AS price_value_growth,
@@ -58,7 +58,7 @@ SELECT
 	AVG(payroll_value_growth)AS payroll_value_growth,
 	GDP_growth
 FROM
-	tabulka
+	GDP_growth_comparison
 WHERE
 	price_value_growth IS NOT NULL
 GROUP BY
