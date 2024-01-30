@@ -1,4 +1,4 @@
-WITH tab AS(
+WITH product_value_growth AS(
 SELECT
 	ls.price_name,
 	ls.price_year,
@@ -32,7 +32,7 @@ SELECT
 	price_name,
 	ROUND(avg(value_growth)) AS value_growth
 FROM
-	tab
+	product_value_growth
 GROUP BY
 	price_name
 ORDER BY 
