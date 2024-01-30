@@ -1,4 +1,4 @@
-WITH tab AS (
+WITH products_payroll_growth AS (
 SELECT
 	ls.price_year,
 	ls.payroll_year,
@@ -54,7 +54,7 @@ FROM
 		payroll_year,
 		ROUND(avg(payroll_value_growth)) AS payroll_value_growth
 	FROM
-		tab
+		products_payroll_growth 
 	WHERE
 		price_value_growth IS NOT NULL
 		AND payroll_value_growth IS NOT NULL
