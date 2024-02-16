@@ -1,3 +1,4 @@
+CREATE TABLE t_Lenka_Sedlackova_project_SQL_primary_final AS 
 SELECT 
 	cpib.name AS industry_branch,
 	cpay.payroll_year,
